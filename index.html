@@ -1,99 +1,31 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Current Time and Weather - Schofield, WI</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Timeclock</title>
     <style>
         body {
+            background-color: rgba(211, 211, 211, 0.5);
+            color: white;
             font-family: Arial, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            margin: 0;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            position: relative;
         }
-        .container {
-            background: white;
-            padding: 40px;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            text-align: center;
-        }
-        h1 {
-            color: #333;
-            margin-top: 0;
-        }
-        .info-box {
-            font-size: 24px;
-            color: #667eea;
-            font-weight: bold;
-            margin: 15px 0;
-        }
-        .label {
-            font-size: 14px;
-            color: #666;
-            margin-top: 10px;
-        }
-        .error {
-            color: #e74c3c;
+        #dateTime {
+            position: absolute;
+            top: 10px;
+            left: 10px;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Schofield, WI</h1>
-        
-        <div class="label">Current Date</div>
-        <div class="info-box" id="date">--</div>
-        
-        <div class="label">Current Time</div>
-        <div class="info-box" id="time">--</div>
-        
-        <div class="label">Current Temperature</div>
-        <div class="info-box" id="temperature">Loading...</div>
+    <div id="dateTime">
+        <div id="currentDate">Date: 2026-04-17</div>
+        <div id="currentTime">Time: 19:03:39</div>
+        <div id="temperature">Temperature: [insert temperature data]</div>
     </div>
-
     <script>
-        // Update date and time every second
-        function updateDateTime() {
-            const now = new Date();
-            
-            // Format date
-            const dateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-            const dateString = now.toLocaleDateString('en-US', dateOptions);
-            document.getElementById('date').textContent = dateString;
-            
-            // Format time
-            const timeString = now.toLocaleTimeString('en-US');
-            document.getElementById('time').textContent = timeString;
-        }
-
-        // Fetch current temperature for Schofield, WI
-        async function updateTemperature() {
-            try {
-                // Using Open-Meteo API (free, no API key required)
-                // Schofield, WI coordinates: 44.8333°N, 89.5167°W
-                const response = await fetch(
-                    'https://api.open-meteo.com/v1/forecast?latitude=44.8333&longitude=-89.5167&current=temperature_2m,weather_code&temperature_unit=fahrenheit'
-                );
-                const data = await response.json();
-                const temperature = data.current.temperature_2m;
-                document.getElementById('temperature').textContent = `${temperature}°F`;
-            } catch (error) {
-                console.error('Error fetching temperature:', error);
-                document.getElementById('temperature').innerHTML = '<span class="error">Unable to load temperature</span>';
-            }
-        }
-
-        // Initial calls
-        updateDateTime();
-        updateTemperature();
-
-        // Update time every second
-        setInterval(updateDateTime, 1000);
-
-        // Update temperature every 10 minutes
-        setInterval(updateTemperature, 600000);
+        // Add script to fetch and display temperature for Schofield, WI here
     </script>
 </body>
 </html>
